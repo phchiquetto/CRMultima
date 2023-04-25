@@ -12,4 +12,5 @@ public class Main {
         Cliente teste2 = new Cliente("349.225.095-90","teste@gmail.com","Teste da Silva Junior", 'F');
         System.out.println(teste2.toString());
     }
+
 }
