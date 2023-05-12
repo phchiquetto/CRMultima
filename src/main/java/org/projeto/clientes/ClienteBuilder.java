@@ -2,9 +2,10 @@ package org.projeto.clientes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
 
-public class Cliente {
+public class ClienteBuilder {
     private String primeironome;
     private String nomesdomeio;
     private String sobrenome;
@@ -17,7 +18,7 @@ public class Cliente {
     private String endereco;
     private String telefone;
 
-    public Cliente(String primeironome, String nomesdomeio, String sobrenome, String cpf,
+    public ClienteBuilder completo(String primeironome, String nomesdomeio, String sobrenome, String cpf,
                    String datadeNascimento, char genero, String email, String endereco, String telefone) {
         this.primeironome = primeironome;
         this.nomesdomeio = nomesdomeio;
@@ -30,6 +31,27 @@ public class Cliente {
         this.email = email;
         this.endereco = endereco;
         this.telefone = telefone;
+        return this;
+    }
+
+    public ClienteBuilder identificacao(String primeironome, String nomesdomeio, String sobrenome, String cpf,
+                                        String datadeNascimento, char genero) {
+        this.primeironome = primeironome;
+        this.nomesdomeio = nomesdomeio;
+        this.sobrenome = sobrenome;
+        this.nomecompleto = primeironome + " " + nomesdomeio + " " + sobrenome;
+        this.cpf = cpf;
+        this.datadeNascimento = datadeNascimento;
+        this.idadeatual = definirIdadeAtual();
+        this.genero = genero;
+        return this;
+    }
+
+    public ClienteBuilder contato(String email, String endereco, String telefone) {
+        this.email = email;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        return this;
     }
     private int definirIdadeAtual(){
         return (recuperaAnoAtual() - recuperarAnoNascimento()) - 1;
@@ -53,7 +75,7 @@ public class Cliente {
     }
     private SimpleDateFormat definirFormatoData(String formatoData){
         if (formatoData == ""){
-        return new SimpleDateFormat("dd/MM/YYYY");
+            return new SimpleDateFormat("dd/MM/YYYY");
         } else {
             return new SimpleDateFormat(formatoData);
         }
@@ -114,7 +136,6 @@ public class Cliente {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
     public String getCpf() {
         return cpf;
     }
@@ -161,11 +182,21 @@ public class Cliente {
 
     }
 
-    public String toString() {
+    public String toStringCompleto() {
         return tratamento()+ " " + nomecompleto +
                 " do CPF " + cpf + " da data de nascimento " + getDatadeNascimento()
                 + " com a idade " + getIdadeatual() +
                 ", com o email " + email + " e telefone " + getTelefone() +
                 " e o genero " + genero;
     }
+    public String toStringContato() {
+        return "E-mail: " + email + " e telefone " + getTelefone();
+    }
+    public String toStringIdentificacao() {
+        return tratamento()+ " " + nomecompleto +
+                " do CPF " + cpf + " da data de nascimento " + getDatadeNascimento()
+                + " com a idade " + getIdadeatual() +
+                " e o genero " + genero;
+    }
+
 }
