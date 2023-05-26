@@ -116,5 +116,7 @@ class ClienteBuilderTest {
 
     @org.junit.jupiter.api.AfterEach
     public void tearDown()throws Exception {
+        clienteBuilder = null;
+        clienteBuilder2 = null;
     }
 }
